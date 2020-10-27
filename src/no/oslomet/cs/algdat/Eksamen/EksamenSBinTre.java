@@ -162,11 +162,11 @@ public class EksamenSBinTre<T> {
      * @return node neste i postorden til node p
      */
     private static <T> Node<T> nestePostorden(Node<T> p) {
-        if(p.forelder == null) return null;                        // rotnoden, siste i postorden
-        else if(p.forelder.høyre.equals(p)) return p.forelder;     // neste i postorden etter høyre barn er forelder
-        else {                                                     // p = venstre barn
-            if(p.forelder.høyre == null) return p.forelder;        // forelder er neste i postorden når p er enebarn
-            else return førstePostorden(p.forelder.høyre);         // ellers første i postorden i treet med p.forelder.høyre som subtre
+        if(p.forelder == null) return null;                         // rotnoden, siste i postorden
+        else if(p.forelder.høyre == p) return p.forelder;      // neste i postorden etter høyre barn er forelder
+        else {                                                      // p = venstre barn
+            if(p.forelder.høyre == null) return p.forelder;         // forelder er neste i postorden når p er enebarn
+            else return førstePostorden(p.forelder.høyre);          // ellers første i postorden i treet med p.forelder.høyre som subtre
         }
     }
 
@@ -174,11 +174,11 @@ public class EksamenSBinTre<T> {
         Node<T> p = rot;
         if (p != null) {
             p = førstePostorden(p);
-            oppgave.utførOppgave(p.verdi);
         }
 
         while(p!=null) {
-
+            oppgave.utførOppgave(p.verdi);
+            p = nestePostorden(p);
         }
     }
 
