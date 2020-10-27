@@ -125,13 +125,13 @@ public class EksamenSBinTre<T> {
         int cmp = 0;                            // hjelpevariabel compare
 
         while(p != null) {
-            cmp = comp.compare(p.verdi,verdi);
-            if(cmp==0) {                        
+            cmp = comp.compare(verdi,p.verdi);
+            if(cmp==0) {                        // hvis ps verdi har duplikater vil disse alltid ligge i ps høyre subtre
                 antall++;
                 p = p.høyre;
             }
-            else if(cmp<0) p = p.høyre;
-            else p = p.venstre;
+            else if(cmp<0) p = p.venstre;       // verdi < p.verdi - må ligge i p's venstre subtre hvis det finnes i søketre
+            else p = p.høyre;                   // verdi > p.verdi - må ligge i p's høyre subtre hvis det finnes i søketre
         }
         return antall;
     }
