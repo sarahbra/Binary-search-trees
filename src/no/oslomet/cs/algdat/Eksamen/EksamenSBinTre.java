@@ -85,13 +85,13 @@ public class EksamenSBinTre<T> {
         Objects.requireNonNull(verdi, "Ulovlig med nullverdier!");
 
         Node<T> p = rot, q=null;                  // p starter i roten
-        int cmp = 0;                             // hjelpevariabel
+        int cmp = 0;                             // hjelpevariabel compare
 
         while (p != null)       // fortsetter til p er ute av treet
         {
             q = p;
             cmp = comp.compare(verdi,p.verdi);     // bruker komparatoren
-            p = cmp < 0 ? p.venstre : p.høyre;     // flytter p
+            p = cmp < 0 ? p.venstre : p.høyre;     // flytter p et nivå lenger ned i søketreet
         }
 
         // p er nå null, dvs. ute av treet, q er den siste vi passerte
@@ -101,8 +101,8 @@ public class EksamenSBinTre<T> {
         // p.forelder er fortsatt lik q, men for logikkens skyld refererer jeg til den som p's forelder.
 
         if (p.forelder == null) rot = p;                  // p blir rotnode
-        else if (cmp < 0) p.forelder.venstre = p;         // venstre barn til q
-        else p.forelder.høyre = p;                        // høyre barn til q
+        else if (cmp < 0) p.forelder.venstre = p;         // venstre barn til forelder
+        else p.forelder.høyre = p;                        // høyre barn til forelder
 
         antall++;                                // én verdi mer i treet
         return true;                             // vellykket innlegging
