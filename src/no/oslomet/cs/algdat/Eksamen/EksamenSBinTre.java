@@ -189,7 +189,14 @@ public class EksamenSBinTre<T> {
         postordenRecursive(rot, oppgave);
     }
 
+    /**
+     * Utfører oppgave på treet i postorden.
+     * @param p
+     * @param oppgave
+     */
     private void postordenRecursive(Node<T> p, Oppgave<? super T> oppgave) {
+
+        // Huskeregel sier venstre, høyre, node og oppgavekallet utføres etter de rekursive kallene
         if(p.venstre!=null) postordenRecursive(p.venstre, oppgave);
         if(p.høyre!=null) postordenRecursive(p.høyre,oppgave);
 
