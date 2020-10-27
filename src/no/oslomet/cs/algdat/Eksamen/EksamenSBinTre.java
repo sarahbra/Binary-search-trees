@@ -156,7 +156,13 @@ public class EksamenSBinTre<T> {
     }
 
     private static <T> Node<T> nestePostorden(Node<T> p) {
+        while(true) {
+            if(p.forelder==null) return null;                          // rotnoden, siste i postorden
+            else if(p.forelder.høyre.equals(p)) return p.forelder;     // neste i postorden etter høyre barn er forelder
+            else {                                                     // p = venstre barn
 
+            }
+        }
     }
 
     public void postorden(Oppgave<? super T> oppgave) {
