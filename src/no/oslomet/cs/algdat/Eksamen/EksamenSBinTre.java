@@ -118,7 +118,22 @@ public class EksamenSBinTre<T> {
     }
 
     public int antall(T verdi) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        if (verdi == null) return 0;            // et binært søketre inneholder ikke nullverdier!
+
+        Node<T> p = rot;
+        int antall = 0;                         // tellevariabel for antall instanser av T verdi
+        int cmp = 0;                            // hjelpevariabel compare
+
+        while(p != null) {
+            cmp = comp.compare(p.verdi,verdi);
+            if(cmp==0) {                        
+                antall++;
+                p = p.høyre;
+            }
+            else if(cmp<0) p = p.høyre;
+            else p = p.venstre;
+        }
+        return antall;
     }
 
     public void nullstill() {
