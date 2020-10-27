@@ -171,10 +171,13 @@ public class EksamenSBinTre<T> {
     }
 
     public void postorden(Oppgave<? super T> oppgave) {
+        // starter i rotnoden og finner første i postorden i binærtreet
         Node<T> p = rot;
         if (p != null) {
             p = førstePostorden(p);
         }
+
+        // utfører oppgave for hver neste i postorden til nestePostorden() returnerer null
 
         while(p!=null) {
             oppgave.utførOppgave(p.verdi);
