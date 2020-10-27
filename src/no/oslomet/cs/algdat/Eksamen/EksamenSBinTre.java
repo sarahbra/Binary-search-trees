@@ -140,12 +140,23 @@ public class EksamenSBinTre<T> {
         throw new UnsupportedOperationException("Ikke kodet ennå!");
     }
 
+    /**
+     * Returnerer neste node i postorden i subtre med node p som rotnode.
+     * @param p
+     * @param <T>
+     * @return node neste i postorden
+     */
+
     private static <T> Node<T> førstePostorden(Node<T> p) {
-        return nestePostorden(p);
+        while(true) {
+            if(p.venstre != null) p = p.venstre;                   //
+            else if(p.høyre != null) p = p.høyre;
+            else return p;
+        }
     }
 
     private static <T> Node<T> nestePostorden(Node<T> p) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+
     }
 
     public void postorden(Oppgave<? super T> oppgave) {
