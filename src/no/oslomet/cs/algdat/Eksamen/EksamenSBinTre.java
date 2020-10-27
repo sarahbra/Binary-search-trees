@@ -131,5 +131,4 @@ public class EksamenSBinTre<T> {
         throw new UnsupportedOperationException("Ikke kodet ennå!");
     }
 
-
 } // ObligSBinTre
