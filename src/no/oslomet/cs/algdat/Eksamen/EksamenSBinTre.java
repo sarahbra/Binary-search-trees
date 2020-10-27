@@ -144,24 +144,29 @@ public class EksamenSBinTre<T> {
      * Returnerer neste node i postorden i subtre med node p som rotnode.
      * @param p
      * @param <T>
-     * @return node neste i postorden
+     * @return node neste i postorden i subtre til p
      */
 
     private static <T> Node<T> førstePostorden(Node<T> p) {
         while(true) {
-            if(p.venstre != null) p = p.venstre;                   //
-            else if(p.høyre != null) p = p.høyre;
-            else return p;
+            if(p.venstre != null) p = p.venstre;                   // går lengst til venstre
+            else if(p.høyre != null) p = p.høyre;                  // høyre for å lete i høyere nivå (lenger ned)
+            else return p;                                         // noden lengst til venstre i ps subtre
         }
     }
 
+    /**
+     * Returner neste node i postorden til node p der p er hvor som helst i søketreet.
+     * @param p
+     * @param <T>
+     * @return node neste i postorden til node p
+     */
     private static <T> Node<T> nestePostorden(Node<T> p) {
-        while(true) {
-            if(p.forelder==null) return null;                          // rotnoden, siste i postorden
-            else if(p.forelder.høyre.equals(p)) return p.forelder;     // neste i postorden etter høyre barn er forelder
-            else {                                                     // p = venstre barn
-
-            }
+        if(p.forelder == null) return null;                        // rotnoden, siste i postorden
+        else if(p.forelder.høyre.equals(p)) return p.forelder;     // neste i postorden etter høyre barn er forelder
+        else {                                                     // p = venstre barn
+            if(p.forelder.høyre == null) return p.forelder;        // forelder er neste i postorden når p er enebarn
+            else return førstePostorden(p.forelder.høyre);         // ellers første i postorden i treet med p.forelder.høyre som subtre
         }
     }
 
