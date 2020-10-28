@@ -108,6 +108,11 @@ public class EksamenSBinTre<T> {
         return true;                             // vellykket innlegging
     }
 
+    /**
+     * Fjerner verdi T fra søketreet hvis verdien finns i treet. Returnerer hvorvidt fjerningen var vellykket.
+     * @param verdi
+     * @return boolean fjernet
+     */
 
     public boolean fjern(T verdi)
     {
@@ -136,25 +141,28 @@ public class EksamenSBinTre<T> {
             }
 
             else {
-                if (p == p.forelder.venstre) p.forelder.venstre = b;
-                else p.forelder.høyre = b;
+                if (p == p.forelder.venstre) p.forelder.venstre = b;      // p er venstre barn
+                else p.forelder.høyre = b;                                // p er høyre barn
+
+                // null har ikke foreldrepeker!
                 if(b!=null) b.forelder = p.forelder;
             }
         }
         else  // Tilfelle 3)
         {
-            Node<T> s = p, r = p.høyre;   // finner neste i inorden
+            Node<T> r = p.høyre;                                  // finner neste i inorden
             while (r.venstre != null)
             {
-                s = r;                    // s er forelder til r
                 r = r.venstre;
             }
 
-            p.verdi = r.verdi;   // kopierer verdien i r til p
+            p.verdi = r.verdi;                                    // kopierer verdien i r til p
 
-            if(r.høyre!=null) r.høyre.forelder = s;
-            if (s != p) s.venstre = r.høyre;
-            else s.høyre = r.høyre;
+            if (r.forelder != p) r.forelder.venstre = r.høyre;    // flytter rs høyre barn opp til forelder
+            else r.forelder.høyre = r.høyre;                      // p er forelder til r, løkken startet ikke
+
+            // Null har fortsatt ikke foreldrepeker!
+            if(r.høyre!=null) r.høyre.forelder = r.forelder;
         }
 
         antall--;   // det er nå én node mindre i treet
