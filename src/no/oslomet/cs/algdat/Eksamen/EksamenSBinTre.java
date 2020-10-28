@@ -234,7 +234,7 @@ public class EksamenSBinTre<T> {
     }
 
     public void nullstill() {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        while(antall>0) fjern(rot);
     }
 
     /**
