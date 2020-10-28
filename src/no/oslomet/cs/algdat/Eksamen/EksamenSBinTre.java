@@ -125,17 +125,8 @@ public class EksamenSBinTre<T> {
         return p;
     }
 
-    /**
-     * Fjerner verdi T fra søketreet hvis verdien finns i treet. Returnerer hvorvidt fjerningen var vellykket.
-     * @param verdi
-     * @return boolean fjernet
-     */
-
-    public boolean fjern(T verdi)
-    {
-        Node<T> p = finnNode(verdi);
-        if(p == null) return false;
-
+    public boolean fjern(Node<T> p) {
+        if(p==null) return false;
         if (p.venstre == null || p.høyre == null)       // Tilfelle 1) og 2)
         {
             // b for barn - er enebarnet venstre eller høyre til p, eller null dersom p er bladnode
@@ -175,8 +166,36 @@ public class EksamenSBinTre<T> {
         return true;
     }
 
+    /**
+     * Fjerner verdi T fra søketreet hvis verdien finns i treet. Returnerer hvorvidt fjerningen var vellykket.
+     * @param verdi
+     * @return boolean fjernet
+     */
+
+    public boolean fjern(T verdi) {
+        Node<T> p = finnNode(verdi);
+        return fjern(p);
+    }
+
     public int fjernAlle(T verdi) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        int antallFjernet = 0, cmp = 0;
+        Node<T> p = finnNode(verdi);
+        p = p.høyre;
+        fjern(p.forelder);
+        antallFjernet++;
+
+        while (p != null)                 // leter etter verdi
+        {
+            cmp = comp.compare(verdi,p.verdi);          // sammenligner
+            if (cmp < 0) { p = p.venstre; }             // går til venstre
+            else if (cmp > 0) { p = p.høyre; }          // går til høyre
+            else {
+                p = p.høyre;
+                fjern(p.forelder);
+                antallFjernet++;
+            }
+        }
+        return antallFjernet;
     }
 
     /**
