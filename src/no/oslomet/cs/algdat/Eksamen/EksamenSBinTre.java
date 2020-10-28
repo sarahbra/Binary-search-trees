@@ -242,7 +242,7 @@ public class EksamenSBinTre<T> {
     }
 
     static <K> EksamenSBinTre<K> deserialize(ArrayList<K> data, Comparator<? super K> c) {
+        EksamenSBinTre<Node<K>> tre = new EksamenSBinTre(c);
+        while(!data.isEmpty())
         
-    }
-
 } // ObligSBinTre
