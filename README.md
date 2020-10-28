@@ -33,3 +33,10 @@ metoden kalles). Løkken finner noden lengst til venstre i det binære søketree
 Metoden nestePostorden er kodet ved direkte logisk oversettelse av avsnitt 5.1.7's regler for å finne neste i postorden og har ved if-tester tatt for seg spesialtilfellene p er rot,
 p er høyre barn, p er venstre enebarn og p er venstre barn med søsken. Dersom det siste er tilfelle kaller vi førstePostorden-metoden for ps høyre søsken der neste i postorden blir første i postorden
 for subtreet med p.høyre som rotnode.
+
+* Oppgave 4: Implementerte først den iterative postordentraverseringen. Denne starter i rotnoden og kaller førstePostorden() for denne noden dersom den ikke er null (tomt tre). Videre kalles nestePostorden()
+i løkke så lenge p ikke er null, hvilket inntreffer når metoden nestePostorden kommer til rotnoden og p.forelder = null. Oppgaveutførelsen skjer før kallet på neste i postorden for å få med første i postorden
+fra if-testen før løkka. Dette gjør også at vi ikke får med null-verdien som returneres når vi utfører det siste kallet på neste i postorden for den siste i postorden, altså rotnoden.
+
+Den rekursive postorden-traverseringen er kodet ved direkte oversettelse av huskeregelen for postordentraversering: venstre, høyre, node. Dette gjør at metoden kaller seg selv med p.venstre så langt det går (p.venstre == null),
+deretter p.høyre til dette ikke går lenger (p.høyre == null) og til slutt utføres oppgaven for noden som blir neste i postorden. SE OVER!!!!!
