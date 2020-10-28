@@ -114,22 +114,23 @@ public class EksamenSBinTre<T> {
         if (verdi == null) return false;  // treet har ingen nullverdier
 
         Node<T> p = rot, q = null;   // q skal være forelder til p
+        int cmp = 0;
 
         while (p != null)            // leter etter verdi
         {
-            int cmp = comp.compare(verdi,p.verdi);      // sammenligner
-            if (cmp < 0) { q = p; p = p.venstre; }      // går til venstre
-            else if (cmp > 0) { q = p; p = p.høyre; }   // går til høyre
-            else break;    // den søkte verdien ligger i p
+            cmp = comp.compare(verdi,p.verdi);          // sammenligner
+            if (cmp < 0) { p = p.venstre; }             // går til venstre
+            else if (cmp > 0) { p = p.høyre; }          // går til høyre
+            else break;                                 // den søkte verdien ligger i p
         }
-        if (p == null) return false;   // finner ikke verdi
+        if (p == null) return false;                    // finner ikke verdi
 
-        if (p.venstre == null || p.høyre == null)  // Tilfelle 1) og 2)
+        if (p.venstre == null || p.høyre == null)       // Tilfelle 1) og 2)
         {
             Node<T> b = p.venstre != null ? p.venstre : p.høyre;  // b for barn
             if (p == rot) rot = b;
-            else if (p == q.venstre) q.venstre = b;
-            else q.høyre = b;
+            else if (p == p.forelder.venstre) p.forelder.venstre = b;
+            else p.forelder.høyre = b;
         }
         else  // Tilfelle 3)
         {
