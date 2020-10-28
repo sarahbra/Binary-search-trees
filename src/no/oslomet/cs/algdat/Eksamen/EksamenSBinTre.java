@@ -108,15 +108,9 @@ public class EksamenSBinTre<T> {
         return true;                             // vellykket innlegging
     }
 
-    /**
-     * Fjerner verdi T fra søketreet hvis verdien finns i treet. Returnerer hvorvidt fjerningen var vellykket.
-     * @param verdi
-     * @return boolean fjernet
-     */
 
-    public boolean fjern(T verdi)
-    {
-        if (verdi == null) return false;  // treet har ingen nullverdier
+    public Node<T> finnNode(T verdi) {
+        if (verdi == null) return null;  // treet har ingen nullverdier
 
         Node<T> p = rot;                  // q skal være forelder til p
         int cmp = 0;
@@ -128,7 +122,19 @@ public class EksamenSBinTre<T> {
             else if (cmp > 0) { p = p.høyre; }          // går til høyre
             else break;                                 // den søkte verdien ligger i p
         }
-        if (p == null) return false;                    // finner ikke verdi
+        return p;
+    }
+
+    /**
+     * Fjerner verdi T fra søketreet hvis verdien finns i treet. Returnerer hvorvidt fjerningen var vellykket.
+     * @param verdi
+     * @return boolean fjernet
+     */
+
+    public boolean fjern(T verdi)
+    {
+        Node<T> p = finnNode(verdi);
+        if(p == null) return false;
 
         if (p.venstre == null || p.høyre == null)       // Tilfelle 1) og 2)
         {
