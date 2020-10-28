@@ -235,16 +235,26 @@ public class EksamenSBinTre<T> {
             Node<T> p = kø.remove();             // tar ut fra køen
             nivåorden.add(p.verdi);              // legger ps verdi i ArrayList
 
+            // legger til verdier i køen i nivåorden
             if (p.venstre != null) kø.add(p.venstre);
             if (p.høyre != null) kø.add(p.høyre);
         }
         return nivåorden;
     }
 
+    /**
+     * Oppretter og returnerer binært søketre fra ArrayList
+     * @param data ArrayList med verdier i nivåorden
+     * @param c Comparator
+     * @param <K>
+     * @return EksamenSBinTre tre
+     */
     static <K> EksamenSBinTre<K> deserialize(ArrayList<K> data, Comparator<? super K> c) {
-        EksamenSBinTre<K> tre = new EksamenSBinTre(c);
-        for (K elem : data) tre.leggInn(elem);
-        return tre;
+        EksamenSBinTre<K> tre = new EksamenSBinTre(c);        // oppretter nytt tre
+
+        for (K elem : data) tre.leggInn(elem);                // legger inn verdier etter arrayrekkefølge (nivåorden)
+
+        return tre;                                           // returnerer tre
     }
 
 } // ObligSBinTre
