@@ -227,12 +227,13 @@ public class EksamenSBinTre<T> {
         kø.add(rot);                            // legger inn roten
 
         while (!kø.isEmpty()) {
-                Node<T> p = kø.remove();             // tar ut fra køen
-                nivåArray.add(p.verdi);     // den generiske oppgaven
+            Node<T> p = kø.remove();             // tar ut fra køen
+            nivåArray.add(p.verdi);     // den generiske oppgaven
 
-                if (p.venstre != null) kø.add(p.venstre);
-                if (p.høyre != null) kø.add(p.høyre);
-            }
+            if (p.venstre != null) kø.add(p.venstre);
+            if (p.høyre != null) kø.add(p.høyre);
+        }
+        return nivåArray;
     }
 
     static <K> EksamenSBinTre<K> deserialize(ArrayList<K> data, Comparator<? super K> c) {
