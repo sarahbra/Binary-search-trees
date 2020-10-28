@@ -191,19 +191,20 @@ public class EksamenSBinTre<T> {
         int antallFjernet = 0, cmp = 0;
 
         //finner først den første noden i nivåorden i binærtreet med parameterverdi hvis den finnes.
-        Node<T> p = finnNode(verdi);
-        p = p.høyre;
-        if(fjern(p.forelder)) antall++;
+        Node<T> p = finnNode(verdi), q = null;
+        if(p!=null) q = p; p = p.høyre;
+        if(fjern(q)) antall++;
 
         // leter kun gjennom p sitt høyre subtre
         while (p != null)                               // leter etter verdi
         {
             cmp = comp.compare(verdi,p.verdi);          // sammenligner
-            if (cmp < 0) { p = p.venstre; }             // går til venstre
-            else if (cmp > 0) { p = p.høyre; }          // går til høyre
+            if (cmp < 0) { q=p; p = p.venstre; }             // går til venstre
+            else if (cmp > 0) { q=p; p = p.høyre; }          // går til høyre
             else {
+                q = p;
                 p = p.høyre;
-                if(fjern(p.forelder)) antall++;
+                if(fjern(q)) antall++;
             }
         }
         return antallFjernet;
@@ -234,7 +235,7 @@ public class EksamenSBinTre<T> {
     }
 
     public void nullstill() {
-        while(antall>0) fjern(rot);
+        while (antall > 0) postorden(c -> fjern(c));
     }
 
     /**
