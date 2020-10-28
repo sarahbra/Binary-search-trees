@@ -117,6 +117,11 @@ public class EksamenSBinTre<T> {
         throw new UnsupportedOperationException("Ikke kodet ennå!");
     }
 
+    /**
+     * Finner antall instanser av T verdi i det binære søketreet. Returnerer 0
+     * @param verdi
+     * @return
+     */
     public int antall(T verdi) {
         if (verdi == null) return 0;            // et binært søketre inneholder ikke nullverdier!
 
@@ -126,7 +131,7 @@ public class EksamenSBinTre<T> {
 
         while(p != null) {
             cmp = comp.compare(verdi,p.verdi);
-            if(cmp==0) {                        // hvis ps verdi har duplikater vil disse alltid ligge i ps høyre subtre
+            if(cmp==0) {                        // funnet. Hvis ps verdi har duplikater vil disse alltid ligge i ps høyre subtre
                 antall++;
                 p = p.høyre;
             }
@@ -147,6 +152,9 @@ public class EksamenSBinTre<T> {
      * @return node neste i postorden i subtre til p
      */
 
+    // Kopiert fra forelesningsnotater Programkode 5.1.7 h) med visse endringer ettersom metoden ikke skal
+    // kaste unntak for tomt tre. Dette håndteres lenger opp i systemet (før metoden kalles).
+
     private static <T> Node<T> førstePostorden(Node<T> p) {
         while(true) {
             if(p.venstre != null) p = p.venstre;                   // går lengst til venstre
@@ -163,12 +171,17 @@ public class EksamenSBinTre<T> {
      */
     private static <T> Node<T> nestePostorden(Node<T> p) {
         if(p.forelder == null) return null;                         // rotnoden, siste i postorden
-        else if(p.forelder.høyre == p) return p.forelder;      // neste i postorden etter høyre barn er forelder
+        else if(p.forelder.høyre == p) return p.forelder;           // neste i postorden etter høyre barn er forelder
         else {                                                      // p = venstre barn
             if(p.forelder.høyre == null) return p.forelder;         // forelder er neste i postorden når p er enebarn
             else return førstePostorden(p.forelder.høyre);          // ellers første i postorden i treet med p.forelder.høyre som subtre
         }
     }
+
+    /**
+     * Traverserer binært søketre i postorden og utfører parameteroppgave på nodenes verdier
+     * @param oppgave
+     */
 
     public void postorden(Oppgave<? super T> oppgave) {
         // starter i rotnoden og finner første i postorden i binærtreet
@@ -185,12 +198,17 @@ public class EksamenSBinTre<T> {
         }
     }
 
+    /**
+     * Traverserer hele binære søketreet rekursivt og utfører oppgave på alle nodenes verdier.
+     * @param oppgave
+     */
+
     public void postordenRecursive(Oppgave<? super T> oppgave) {
         postordenRecursive(rot, oppgave);
     }
 
     /**
-     * Utfører oppgave på treet i postorden.
+     * Utfører oppgave på binærtreet i postorden rekursivt fra parameternoden p.
      * @param p
      * @param oppgave
      */
