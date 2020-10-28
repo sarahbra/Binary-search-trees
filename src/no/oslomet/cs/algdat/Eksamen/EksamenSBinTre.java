@@ -125,6 +125,11 @@ public class EksamenSBinTre<T> {
         return p;
     }
 
+    /**
+     * Fjerner Node p fra søketreet. Returnerer hvorvidt fjerningen var vellykket.
+     * @param p
+     * @return boolean fjernet
+     */
     public boolean fjern(Node<T> p) {
         if(p==null) return false;
         if (p.venstre == null || p.høyre == null)       // Tilfelle 1) og 2)
@@ -177,22 +182,28 @@ public class EksamenSBinTre<T> {
         return fjern(p);
     }
 
+    /**
+     * Fjerner alle duplikater i søketreet med verdien T verdi ved å lete i noden med første instanse av verdien sitt høyre subtre
+     * @param verdi
+     * @return int antFjernet
+     */
     public int fjernAlle(T verdi) {
         int antallFjernet = 0, cmp = 0;
+
+        //finner først den første noden i nivåorden i binærtreet med parameterverdi hvis den finnes.
         Node<T> p = finnNode(verdi);
         p = p.høyre;
-        fjern(p.forelder);
-        antallFjernet++;
+        if(fjern(p.forelder)) antall++;
 
-        while (p != null)                 // leter etter verdi
+        // leter kun gjennom p sitt høyre subtre
+        while (p != null)                               // leter etter verdi
         {
             cmp = comp.compare(verdi,p.verdi);          // sammenligner
             if (cmp < 0) { p = p.venstre; }             // går til venstre
             else if (cmp > 0) { p = p.høyre; }          // går til høyre
             else {
                 p = p.høyre;
-                fjern(p.forelder);
-                antallFjernet++;
+                if(fjern(p.forelder)) antall++;
             }
         }
         return antallFjernet;
