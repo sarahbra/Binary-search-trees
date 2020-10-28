@@ -127,17 +127,18 @@ public class EksamenSBinTre<T> {
 
         if (p.venstre == null || p.høyre == null)       // Tilfelle 1) og 2)
         {
-            Node<T> b = p.venstre != null ? p.venstre : p.høyre;  // b for barn
+            // b for barn - er enebarnet venstre eller høyre til p, eller null dersom p er bladnode
+            Node<T> b = p.venstre != null ? p.venstre : p.høyre;
 
             if (p == rot) {
-                b.forelder = null;
+                if(b!=null) b.forelder = null;         // tilfellet der p er eneste node i treet
                 rot = b;
             }
 
             else {
                 if (p == p.forelder.venstre) p.forelder.venstre = b;
                 else p.forelder.høyre = b;
-                b.forelder = p.forelder;
+                if(b!=null) b.forelder = p.forelder;
             }
         }
         else  // Tilfelle 3)
@@ -145,12 +146,13 @@ public class EksamenSBinTre<T> {
             Node<T> s = p, r = p.høyre;   // finner neste i inorden
             while (r.venstre != null)
             {
-                s = r;    // s er forelder til r
+                s = r;                    // s er forelder til r
                 r = r.venstre;
             }
 
             p.verdi = r.verdi;   // kopierer verdien i r til p
 
+            if(r.høyre!=null) r.høyre.forelder = s;
             if (s != p) s.venstre = r.høyre;
             else s.høyre = r.høyre;
         }
