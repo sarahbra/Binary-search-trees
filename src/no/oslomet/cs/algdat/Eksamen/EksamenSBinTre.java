@@ -182,11 +182,12 @@ public class EksamenSBinTre<T> {
         return fjern(p);
     }
 
+
     /**
      * Fjerner alle duplikater i søketreet med verdien T verdi ved å lete i noden med første instanse av verdien sitt høyre subtre
      * @param verdi
      * @return int antFjernet
-     */
+
     public int fjernAlle(T verdi) {
         int antallFjernet = 0, cmp = 0;
 
@@ -208,6 +209,14 @@ public class EksamenSBinTre<T> {
             }
         }
         return antallFjernet;
+    }
+
+    */
+
+    public int fjernAlle(T verdi) {
+        int antfjernet = 0;
+        while(fjern(verdi)) antfjernet++;
+        return antfjernet;
     }
 
     /**
@@ -235,7 +244,7 @@ public class EksamenSBinTre<T> {
     }
 
     public void nullstill() {
-        while (antall > 0) postorden(c -> fjern(c));
+        if(!tom()) postordenRecursive(c->fjern(c));
     }
 
     /**
