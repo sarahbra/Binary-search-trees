@@ -40,3 +40,5 @@ fra if-testen før løkka. Dette gjør også at vi ikke får med null-verdien so
 
 Den rekursive postorden-traverseringen er kodet ved direkte oversettelse av huskeregelen for postordentraversering: venstre, høyre, node. Dette gjør at metoden kaller seg selv med p.venstre så langt det går (p.venstre == null),
 deretter p.høyre til dette ikke går lenger (p.høyre == null) og til slutt utføres oppgaven for noden som blir neste i postorden. SE OVER!!!!!
+
+* Oppgave 5: Kopiert Programkode 5.1.6 d) i metoden serialized og endret 

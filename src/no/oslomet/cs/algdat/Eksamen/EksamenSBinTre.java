@@ -221,23 +221,28 @@ public class EksamenSBinTre<T> {
         oppgave.utførOppgave(p.verdi);
     }
 
+    /**
+     * Returnerer arraylist av elementene fra det binære søketreet i nivåorden.
+     * @return ArrayList<T> nivåorden
+     */
+
     public ArrayList<T> serialize() {
-        ArrayList<T> nivåArray = new ArrayList<>();
+        ArrayList<T> nivåorden = new ArrayList<>();
         Queue<Node<T>> kø = new ArrayDeque<>();
         kø.add(rot);                            // legger inn roten
 
-        while (!kø.isEmpty()) {
+        while (!kø.isEmpty()) {                  // slutter nok køen er tom
             Node<T> p = kø.remove();             // tar ut fra køen
-            nivåArray.add(p.verdi);     // den generiske oppgaven
+            nivåorden.add(p.verdi);              // legger ps verdi i ArrayList
 
             if (p.venstre != null) kø.add(p.venstre);
             if (p.høyre != null) kø.add(p.høyre);
         }
-        return nivåArray;
+        return nivåorden;
     }
 
     static <K> EksamenSBinTre<K> deserialize(ArrayList<K> data, Comparator<? super K> c) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        
     }
 
 } // ObligSBinTre
