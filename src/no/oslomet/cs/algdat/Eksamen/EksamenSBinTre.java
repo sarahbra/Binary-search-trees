@@ -108,6 +108,11 @@ public class EksamenSBinTre<T> {
         return true;                             // vellykket innlegging
     }
 
+    /**
+     * Returnerer Node<T> som ligger i det minste nivået (nærmest rotnoden) med verdi T, hvis den fginnes.
+     * @param verdi
+     * @return
+     */
 
     public Node<T> finnNode(T verdi) {
         if (verdi == null) return null;  // treet har ingen nullverdier
@@ -178,8 +183,7 @@ public class EksamenSBinTre<T> {
      */
 
     public boolean fjern(T verdi) {
-        Node<T> p = finnNode(verdi);
-        return fjern(p);
+        return fjern(finnNode(verdi));
     }
 
 
@@ -333,7 +337,7 @@ public class EksamenSBinTre<T> {
         Queue<Node<T>> kø = new ArrayDeque<>();
         kø.add(rot);                            // legger inn roten
 
-        while (!kø.isEmpty()) {                  // slutter nok køen er tom
+        while (!kø.isEmpty()) {                  // slutter når køen er tom
             Node<T> p = kø.remove();             // tar ut fra køen
             nivåorden.add(p.verdi);              // legger ps verdi i ArrayList
 
