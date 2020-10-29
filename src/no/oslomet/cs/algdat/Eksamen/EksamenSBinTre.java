@@ -32,7 +32,6 @@ public class EksamenSBinTre<T> {
 
     private Node<T> rot;                            // peker til rotnoden
     private int antall;                             // antall noder
-    private int endringer;                          // antall endringer
 
     private final Comparator<? super T> comp;       // komparator
 
@@ -110,15 +109,15 @@ public class EksamenSBinTre<T> {
 
     /**
      * Returnerer Node<T> som ligger i det minste nivået (nærmest rotnoden) med verdi T, hvis den fginnes.
-     * @param verdi
-     * @return
+     * @param verdi verdi som letes etter i søketreet
+     * @return Node<T>, første instans av T verdi i nivåorden
      */
 
     public Node<T> finnNode(T verdi) {
         if (verdi == null) return null;  // treet har ingen nullverdier
 
         Node<T> p = rot;                  // q skal være forelder til p
-        int cmp = 0;
+        int cmp;
 
         while (p != null)                 // leter etter verdi
         {
@@ -132,7 +131,7 @@ public class EksamenSBinTre<T> {
 
     /**
      * Fjerner Node p fra søketreet. Returnerer hvorvidt fjerningen var vellykket.
-     * @param p
+     * @param p node som skal fjernes
      * @return boolean fjernet
      */
     public boolean fjern(Node<T> p) {
@@ -178,7 +177,7 @@ public class EksamenSBinTre<T> {
 
     /**
      * Fjerner verdi T fra søketreet hvis verdien finns i treet. Returnerer hvorvidt fjerningen var vellykket.
-     * @param verdi
+     * @param verdi som skal fjernes fra treet
      * @return boolean fjernet
      */
 
@@ -189,7 +188,7 @@ public class EksamenSBinTre<T> {
 
     /**
      * Fjerner alle duplikater i søketreet med verdien T verdi ved å lete i noden med første instanse av verdien sitt høyre subtre
-     * @param verdi
+     * @param verdi som skal fjernes fra treet
      * @return int antFjernet
 
     public int fjernAlle(T verdi) {
@@ -225,15 +224,15 @@ public class EksamenSBinTre<T> {
 
     /**
      * Finner antall instanser av T verdi i det binære søketreet. Returnerer 0
-     * @param verdi
-     * @return
+     * @param verdi verdien som det skal finnes antall duplikater i treet av
+     * @return antall duplikater av verdi
      */
     public int antall(T verdi) {
         if (verdi == null) return 0;            // et binært søketre inneholder ikke nullverdier!
 
         Node<T> p = rot;
         int antall = 0;                         // tellevariabel for antall instanser av T verdi
-        int cmp = 0;                            // hjelpevariabel compare
+        int cmp;                                // hjelpevariabel compare
 
         while(p != null) {
             cmp = comp.compare(verdi,p.verdi);
@@ -248,13 +247,13 @@ public class EksamenSBinTre<T> {
     }
 
     public void nullstill() {
-        if(!tom()) postordenRecursive(c->fjern(c));
+        if(!tom()) postordenRecursive(this::fjern);
     }
 
     /**
      * Returnerer neste node i postorden i subtre med node p som rotnode.
-     * @param p
-     * @param <T>
+     * @param p rotnode til subtre man finner neste i postorden til
+     * @param <T> node første i postorden etter p
      * @return node neste i postorden i subtre til p
      */
 
@@ -271,8 +270,8 @@ public class EksamenSBinTre<T> {
 
     /**
      * Returner neste node i postorden til node p der p er hvor som helst i søketreet.
-     * @param p
-     * @param <T>
+     * @param p node man finner neste i postorden til
+     * @param <T> verdi til node
      * @return node neste i postorden til node p
      */
     private static <T> Node<T> nestePostorden(Node<T> p) {
@@ -286,7 +285,7 @@ public class EksamenSBinTre<T> {
 
     /**
      * Traverserer binært søketre i postorden og utfører parameteroppgave på nodenes verdier
-     * @param oppgave
+     * @param oppgave oppgave som skal utføres på verdiene i postorden
      */
 
     public void postorden(Oppgave<? super T> oppgave) {
@@ -306,7 +305,7 @@ public class EksamenSBinTre<T> {
 
     /**
      * Traverserer hele binære søketreet rekursivt og utfører oppgave på alle nodenes verdier.
-     * @param oppgave
+     * @param oppgave oppgave som skal utføres på noder i postorden
      */
 
     public void postordenRecursive(Oppgave<? super T> oppgave) {
@@ -315,8 +314,8 @@ public class EksamenSBinTre<T> {
 
     /**
      * Utfører oppgave på binærtreet i postorden rekursivt fra parameternoden p.
-     * @param p
-     * @param oppgave
+     * @param p node start
+     * @param oppgave oppgave som utføres på node neste i postorden
      */
     private void postordenRecursive(Node<T> p, Oppgave<? super T> oppgave) {
 
@@ -352,15 +351,15 @@ public class EksamenSBinTre<T> {
      * Oppretter og returnerer binært søketre fra ArrayList
      * @param data ArrayList med verdier i nivåorden
      * @param c Comparator
-     * @param <K>
+     * @param <K> verdi
      * @return EksamenSBinTre tre
      */
     static <K> EksamenSBinTre<K> deserialize(ArrayList<K> data, Comparator<? super K> c) {
-        EksamenSBinTre<K> tre = new EksamenSBinTre(c);        // oppretter nytt tre
+        EksamenSBinTre<K> tre = new EksamenSBinTre<>(c);           // oppretter nytt tre
 
-        for (K elem : data) tre.leggInn(elem);                // legger inn verdier etter arrayrekkefølge (nivåorden)
+        for (K elem : data) tre.leggInn(elem);                     // legger inn verdier etter arrayrekkefølge (nivåorden)
 
-        return tre;                                           // returnerer tre
+        return tre;                                                // returnerer tre
     }
 
 } // ObligSBinTre

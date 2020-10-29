@@ -237,7 +237,7 @@ public class EksamenTest {
             System.out.println("Oppgave 6b: Feil i fjern(T)! Tallet 12 er ikke i treet!");
         }
 
-        if (fjernet == true) {
+        if (fjernet) {
             antallFeil++;
             System.out.println("Oppgave 6c: Feil i fjern(T)! Skal returnere false når");
             System.out.println("verdien ikke er i treet.");
@@ -257,7 +257,7 @@ public class EksamenTest {
             System.out.println("Oppgave 6e: Feil i fjern(T)!");
         }
 
-        if (fjernet == false) {
+        if (!fjernet) {
             antallFeil++;
             System.out.println("Oppgave 6f: Feil i fjern(T)! Skal returnere true");
             System.out.println("for en vellykket fjerning.");
