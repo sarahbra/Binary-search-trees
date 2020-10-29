@@ -42,6 +42,7 @@ public class EksamenSBinTre<T> {
         comp = c;
     }
 
+    @SuppressWarnings("unused")
     public boolean inneholder(T verdi) {
         if (verdi == null) return false;
 
@@ -79,6 +80,13 @@ public class EksamenSBinTre<T> {
         return antall == 0;
     }
 
+    /**
+     * Legger inn verdi T i binært søketre i henhold til reglene for binære søketrær
+     * @param verdi som skal legges inn
+     * @return boolean vellykket
+     */
+
+    @SuppressWarnings("UnusedReturnValue")
     public final boolean leggInn(T verdi)
     {
         Objects.requireNonNull(verdi, "Ulovlig med nullverdier!");
@@ -203,8 +211,8 @@ public class EksamenSBinTre<T> {
         while (p != null)                               // leter etter verdi
         {
             cmp = comp.compare(verdi,p.verdi);          // sammenligner
-            if (cmp < 0) { q=p; p = p.venstre; }             // går til venstre
-            else if (cmp > 0) { q=p; p = p.høyre; }          // går til høyre
+            if (cmp < 0) { q=p; p = p.venstre; }        // går til venstre
+            else if (cmp > 0) { q=p; p = p.høyre; }     // går til høyre
             else {
                 q = p;
                 p = p.høyre;
@@ -228,7 +236,7 @@ public class EksamenSBinTre<T> {
      * @return antall duplikater av verdi
      */
     public int antall(T verdi) {
-        if (verdi == null) return 0;            // et binært søketre inneholder ikke nullverdier!
+        if (verdi == null) return 0;            // et binært søketre inneholder ikke nullverdier
 
         Node<T> p = rot;
         int antall = 0;                         // tellevariabel for antall instanser av T verdi
@@ -246,6 +254,9 @@ public class EksamenSBinTre<T> {
         return antall;
     }
 
+    /**
+     * Nullstiller det binære søketreet, dvs setter alle noder og pekere til null.
+     */
     public void nullstill() {
         if(!tom()) postordenRecursive(this::fjern);
     }
@@ -320,7 +331,7 @@ public class EksamenSBinTre<T> {
     private void postordenRecursive(Node<T> p, Oppgave<? super T> oppgave) {
 
         // Huskeregel sier venstre, høyre, node og oppgavekallet utføres etter de rekursive kallene
-        if(p.venstre!=null) postordenRecursive(p.venstre, oppgave);
+        if(p.venstre!=null) postordenRecursive(p.venstre,oppgave);
         if(p.høyre!=null) postordenRecursive(p.høyre,oppgave);
 
         oppgave.utførOppgave(p.verdi);
