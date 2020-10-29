@@ -1,6 +1,5 @@
 package no.oslomet.cs.algdat.Eksamen;
 
-
 import java.util.*;
 
 public class EksamenSBinTre<T> {
@@ -193,36 +192,11 @@ public class EksamenSBinTre<T> {
         return fjern(finnNode(verdi));
     }
 
-
     /**
      * Fjerner alle duplikater i søketreet med verdien T verdi ved å lete i noden med første instanse av verdien sitt høyre subtre
      * @param verdi som skal fjernes fra treet
      * @return int antFjernet
-
-    public int fjernAlle(T verdi) {
-        int antallFjernet = 0, cmp = 0;
-
-        //finner først den første noden i nivåorden i binærtreet med parameterverdi hvis den finnes.
-        Node<T> p = finnNode(verdi), q = null;
-        if(p!=null) q = p; p = p.høyre;
-        if(fjern(q)) antall++;
-
-        // leter kun gjennom p sitt høyre subtre
-        while (p != null)                               // leter etter verdi
-        {
-            cmp = comp.compare(verdi,p.verdi);          // sammenligner
-            if (cmp < 0) { q=p; p = p.venstre; }        // går til venstre
-            else if (cmp > 0) { q=p; p = p.høyre; }     // går til høyre
-            else {
-                q = p;
-                p = p.høyre;
-                if(fjern(q)) antall++;
-            }
-        }
-        return antallFjernet;
-    }
-
-    */
+     */
 
     public int fjernAlle(T verdi) {
         int antfjernet = 0;

@@ -37,16 +37,14 @@ for subtreet med p.høyre som rotnode.
 * Oppgave 4: Implementerte først den iterative postordentraverseringen. Denne starter i rotnoden og kaller førstePostorden() for denne noden dersom den ikke er null (tomt tre). Videre kalles nestePostorden()
 i løkke så lenge p ikke er null, hvilket inntreffer når metoden nestePostorden kommer til rotnoden og p.forelder = null. Oppgaveutførelsen skjer før kallet på neste i postorden for å få med første i postorden
 fra if-testen før løkka. Dette gjør også at vi ikke får med null-verdien som returneres når vi utfører det siste kallet på neste i postorden for den siste i postorden, altså rotnoden.
-
 Den rekursive postorden-traverseringen er kodet ved direkte oversettelse av huskeregelen for postordentraversering: venstre, høyre, node. Dette gjør at metoden kaller seg selv med p.venstre så langt det går (p.venstre == null),
-deretter p.høyre til dette ikke går lenger (p.høyre == null) og til slutt utføres oppgaven for noden som blir neste i postorden. SE OVER!!!!!
+deretter p.høyre til dette ikke går lenger (p.høyre == null) og til slutt utføres oppgaven for noden som blir neste i postorden.
 
 * Oppgave 5: Kopiert Programkode 5.1.6 d) i metoden serialized og endret metoden slik at den tar i bruk en hjelpequeue i stedet for en kø. Metoden starter med å opprette en Deque som rotnoden legges inn i og en 
 ArrayList som skal ta vare på og returnere verdiene i søketreet i nivåorden.
 Deretter går vi inn i en while-løkke som først fjerner en node fra køen (i første iterasjon blir dette rot), legger nodens verdi inn i arrayLista og legger først nodens venstre barn (hvis den finnes) og så nodens høyre barn (hvis den
 finnes) i queuen. Dette blir i første iterasjon rotnodens venstre og høyre barn. I andre iterasjon tas rotnodens venstre barn ut av køen, den legges inn i arrayListen, og dens barn legges inn i queuen. I tredje iterasjon tas rotnodens høyre barn
 ut, skrives til array, og dens venstre og høyre barn legges inn osv osv til bladnodene er lagt inn og vi for hver iterasjon bare tar ut fra queuen, men ikke legger til, og fortsetter til queuen er tom. Da returneres arrayLista med verdier i nivåorden.
-
 Metoden deserialize() tar som parametere en generisk ArrayList med data og en Comparator. Comparatoren gjør at vi kan benytte klassens konstruktør for opprettelse av tre, og siden arrayet som tas inn ligger i nivåorden, trenger vi 
 bare legge inn elementene i arrayet i rekkefølgen de står, hvilket er enklest gjort med en for-each-løkke.
 
@@ -55,6 +53,12 @@ laget for seg selv og fordi jeg tenkte metodene kunne være mer anvendelige for 
 fra en kopi av Programkode 5.2.8d. Fjern(Node)-metoden tar utgangspunkt i de tre tilfellene for nodefjerning: At noden som fjernes er rotnoden, at noden er en bladnode eller kun har ett barn, og at den har to barn. Dersom det siste er tilfelle
 må man finne den neste noden r i inorden og kopiere verdien til den noden over i noden p som skal fjernes. Deretter fjernes r ved at r.forelder.venstre settes til r.høyre. I de andre tilfellene kan vi bare fjerne selve noden og flytte (eventuelt) barn til
 plassen noden hadde og endre foreldrepeker underveis.
+I fjernAlle-metoden lekte jeg først med tanken om å kun iterere over første noden med verdi = T sitt høyre subtre, men treet vil jo endre seg ettersom man fjerner fjerdier i treet utfra reglene for nodefjerning sl.a jeg i stedet bare kaller fjern(Verdi T)-metoden
+fram til denne returnerer falskt i stedet samtidig som jeg øker antall for hver gang. Da leter metoden gjennom hele treet for hvert kall, men alle verdiene vil bli fjernet.
+Den beste traverseringen for å nullstille et binært søketre er postorden. Dette fordi vi går løs på bladnodene før vi tar foreldernoden. Vi har allerede laget en metode for å traversere det binære søketreet i postorden og kan dermed kjøre inn fjern som oppgaveparameter til
+postordenmetoden. Nullstill() kan dermed implementeres enklest med den enkle setningen "if(!tom()) postordenRecursive(this::fjern);". Her vil antall sammenlikninger være fler enn nødvendig ettersom vi alltid sletter bladnoder og mye av koden fra fjern blir overflødig, 
+men postordensletting er i seg selv rask, så dette skal ikke ha mye å si for effektiviteten. 
 
+Koden har 4 warnings. Disse er alle bruk av ikke-ASCII (norske) bokstaver i identifiers.
 
 
