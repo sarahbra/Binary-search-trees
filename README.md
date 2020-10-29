@@ -1,20 +1,8 @@
 # Mappeeksamen i Algoritmer og Datastrukturer Høst 2020
 
-# Krav til innlevering
-
-Se oblig-tekst for alle krav, og husk spesielt på følgende:
-
-* Git er brukt til å dokumentere arbeid (minst 2 commits per oppgave, beskrivende commit-meldinger)	
-* git bundle er levert inn
-* Hovedklassen ligger i denne path'en i git: src/no/oslomet/cs/algdat/Eksamen/EksamenSBinTre.java
-* Ingen debug-utskrifter
-* Alle testene i test-programmet kjører og gir null feil (også spesialtilfeller)
-* Readme-filen her er fyllt ut som beskrevet
-
-
 # Beskrivelse av oppgaveløsning (4-8 linjer/setninger per oppgave)
 
-Jeg har brukt git til å dokumentere arbeidet mitt. Jeg har 16 commits totalt, og hver logg-melding beskriver det jeg har gjort av endringer.
+Jeg har brukt git til å dokumentere arbeidet mitt. Jeg har 40 commits totalt, og hver logg-melding beskriver det jeg har gjort av endringer.
 
 * Oppgave 0: Sjekket først at løsningene vi allerede har fått utlevert kjører som de skal (dvs at SBinTre's konstruktør, metodene antall(), toStringPostOrder() og inneholder() 
 - i den grad dette kan testes, løkkene kjører ikke for tomme trær - gjør som de skal). All utdelt kode fungerte som ventet for referansetypene Character, String, Integer osv.
